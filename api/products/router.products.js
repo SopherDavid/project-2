@@ -10,12 +10,12 @@ router.get('/', productsController.getAllProducts)
 router.get('/:id', productsController.getProductsById)
 
 // POST localhost:3000/api/users/
-// router.post('/', productsController.addProducts)
+router.post('/:id', productsController.addProduct);
 
 // PUT localhost:3000/api/users/
-router.put('/', productsController.updateProducts)
+router.put('/:id', productsController.updateProducts)
 
 // DELETE localhost:3000/api/users/
-router.delete('/', productsController.deleteProducts)
+router.delete('/:id', productsController.deleteProducts)
 
 export default router;

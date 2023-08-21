@@ -1,8 +1,8 @@
-import userDal from './dal.products.js';
+import productDal from './dal.products.js';
 
 const getProducts = async () => {
     try {
-        const products = await userDal.getProducts();
+        const products = await productDal.getProducts();
         return products;
     } catch (err) {
         console.error('Error reading data:', err);
@@ -12,7 +12,7 @@ const getProducts = async () => {
 
 const getProductsById = async (id) => {
     try {
-        const products = await userDal.getProductsById(id);
+        const products = await productDal.getProductsById(id);
         return products;
     } catch (err) {
         console.error('Error reading data:', err);
@@ -20,10 +20,22 @@ const getProductsById = async (id) => {
     }
 };
 
+const addProducts = async (product) => {
+    try {
+        const newProduct = await productDal.addProducts(product);
+        return newProduct
+    } catch (err) {
+console.error('Error adding product:', err);
+throw err;
+    }
+}
 
 const productsService = {
     getProducts,
-    getProductsById
+    getProductsById,
+    addProducts,
+    // updateProducts,
+    // deleteProducts,
 
 };
 

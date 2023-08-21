@@ -33,11 +33,21 @@ const getProductsById = async (req, res) => {
 };
 
 
+const addProduct = async (req, res) => {
+  try {
+      const newProduct = await productsService.addProduct(req.body);
+      res.status(201).json(newProduct); 
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Server error' });
+  }
+};
+
 const updateProducts = async (req, res) => {
     try {
       const productId = parseInt(req.params.id);
       const updatedProduct = req.body;
-      const product = await productsService.updateProducts(productId, updatedProduct);
+      const product = await productsService.updateProduct(productId, updatedProduct);
   
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
@@ -48,39 +58,32 @@ const updateProducts = async (req, res) => {
       console.error("Error:", error);
       res.status(500).json({ error: "Server error" });
     }
-  };
+};
   
-  const deleteProducts = async (req, res) => {
+const deleteProducts = async (req, res) => {
     try {
       const productId = parseInt(req.params.id);
-      const deleteProduct = await productsService.deleteProducts(productId);
+      const deleteProduct = await productsService.deleteProduct(productId);
   
       if (!deleteProduct) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Product not found" });
       }
   
-      res.json(deleteProducts);
+      res.json(deleteProduct);
     } catch (error) {
       console.error("Error:", error);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: "Server error" }); 
     }
-  };
+};
   
-
-
-
 
 const productController = {
     getAllProducts,
     getProductsById,
+    addProduct,
     updateProducts,
-    deleteProducts,
-
+    deleteProducts
 };
 
 
 export default productController;
-
-
-
-
