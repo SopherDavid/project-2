@@ -23,6 +23,8 @@ const getProducts = async (req, res) => {
 
 const getProductsById = async (id) => {
     try {
+        const dataAsync = await readFileAsync('./data.json', 'utf8');
+
         const jsonData = JSON.parse(dataAsync);
         const product = jsonData.find(product => id === String(product.id));
         return product;
@@ -39,7 +41,7 @@ const addProducts = async (product) => {
         const newProductId = jsonData.length +1;
         const newProduct = {id: newProductId, ...product};
         jsonData.push(newProduct);
-        await writeFileAsync('/.data.json', Jason.stringify(jsonData, null, 2), 'utf-8');
+        await writeFileAsync('./data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
         console.log("product added successfully.");
         return newProduct;
 
@@ -52,6 +54,8 @@ const addProducts = async (product) => {
 
 const updateProducts = async (id, updatedProduct) => {
     try {  
+        const dataAsync = await readFileAsync('./data.json', 'utf8');
+
         let jsonData = JSON.parse(dataAsync);
         const productIndex = jsonData.findIndex(product => id === String(product.id));
         
@@ -72,6 +76,8 @@ const updateProducts = async (id, updatedProduct) => {
 
 const deleteProducts = async (id) => {
     try {
+        const dataAsync = await readFileAsync('./data.json', 'utf8');
+
         let jsonData = JSON.parse(dataAsync);
         const updatedData = jsonData.filter(product => id !== String(product.id));
 

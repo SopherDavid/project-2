@@ -19,7 +19,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductsById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         const products = await productsService.getProductsById(id);
         if(products) {
             return res.status(200).json(products)
@@ -33,10 +33,13 @@ const getProductsById = async (req, res) => {
 };
 
 
-const addProduct = async (req, res) => {
+const addProducts = async (req, res) => {
+  console.log("3")
+
   try {
-      const newProduct = await productsService.addProduct(req.body);
+      const newProduct = await productsService.addProducts(req.body);
       res.status(201).json(newProduct); 
+
   } catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'Server error' });
@@ -47,8 +50,9 @@ const updateProducts = async (req, res) => {
     try {
       const productId = parseInt(req.params.id);
       const updatedProduct = req.body;
-      const product = await productsService.updateProduct(productId, updatedProduct);
-  
+
+      const product = await productsService.updateProducts(productId, updatedProduct);
+      
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -80,7 +84,7 @@ const deleteProducts = async (req, res) => {
 const productController = {
     getAllProducts,
     getProductsById,
-    addProduct,
+    addProducts,
     updateProducts,
     deleteProducts
 };

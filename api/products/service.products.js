@@ -12,8 +12,8 @@ const getProducts = async () => {
 
 const getProductsById = async (id) => {
     try {
-        const products = await productDal.getProductsById(id);
-        return products;
+        const product = await productDal.getProductsById(id);
+        return product;
     } catch (err) {
         console.error('Error reading data:', err);
         throw err;
@@ -22,6 +22,8 @@ const getProductsById = async (id) => {
 
 const addProducts = async (product) => {
     try {
+        console.log("3")
+
         const newProduct = await productDal.addProducts(product);
         return newProduct
     } catch (err) {

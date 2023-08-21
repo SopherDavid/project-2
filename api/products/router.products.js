@@ -10,7 +10,9 @@ router.get('/', productsController.getAllProducts)
 router.get('/:id', productsController.getProductsById)
 
 // POST localhost:3000/api/users/
-router.post('/:id', productsController.addProduct);
+router.post('/', productsController.addProducts);
+
+
 
 // PUT localhost:3000/api/users/
 router.put('/:id', productsController.updateProducts)
