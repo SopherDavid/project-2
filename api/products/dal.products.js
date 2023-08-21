@@ -31,10 +31,45 @@ const getProductsById = async (id) => {
     }
 };
 
+const updateProducts = async (id) => {
+    try {        
+        const readFileAsync = promisify(fs.readFile)
+        const dataAsync = await readFileAsync('./data.json', 'utf8');
+        const jsonData = JSON.parse(dataAsync);
+        const product = jsonData.find(product => id === String(product.id));
+        return product;
+
+    } catch {
+        console.error('Error reading data:', err);
+        res.send('Error reading data');
+    }
+}
+
+const deleteProducts = async (id) => {
+    try {
+        const readFileAsync = promisify(fs.readFile)
+        const writeFileAsync = promisify(fs.writeFile);
+
+        const dataAsync = await readFileAsync('./data.json', 'utf8');
+        const jsonData = JSON.parse(dataAsync);
+
+        const updatedData = jsonData.filter(product => id !== String(product.id));
+
+        await writeFileAsync('./data.json', JSON.stringify(updatedData, null, 2), 'utf8');
+
+        console.log('Product deleted successfully.');
+
+    } catch (error) {
+        console.error('Error deleting product:', error);
+    }
+
+}
 
 const userDal = {
     getProducts,
-    getProductsById
+    getProductsById,
+    updateProducts,
+    deleteProducts
 };
 
 export default userDal;
